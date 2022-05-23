@@ -42,21 +42,25 @@ class CardControllerTests {
     private long dependentId;
     private String existingName;
     private String nonExistingName;
-    private CardDTO dto;
+    private CardDTO cardDTO;
 
     @BeforeEach
-    void setUp() throws Exception {
-        Long existingId = 1L;
-        Long nonExistingId = 2L;
-        Long dependentId = 3L;
-
-        CardDTO cardDTO = Factory.createCardDTO();
+    void setUp() {
+        existingId = 1L;
+        nonExistingId = 2L;
+        dependentId = 3L;
+        existingName = "Black Lotus";
+        nonExistingName = "invalid name";
+        cardDTO = Factory.createCardDTO();
         PageImpl<CardDTO> page = new PageImpl<>(List.of(cardDTO));
 
         when(cardService.findAll(any())).thenReturn(page);
 
         when(cardService.findById(existingId)).thenReturn(cardDTO);
         when(cardService.findById(nonExistingId)).thenThrow(EntityNotFoundException.class);
+
+        when(cardService.findByName(existingName)).thenReturn(cardDTO);
+        when(cardService.findByName(nonExistingName)).thenThrow(EntityNotFoundException.class);
 
         when(cardService.insert(any())).thenReturn(cardDTO);
 
@@ -79,7 +83,7 @@ class CardControllerTests {
     @Test
     void findByIdShouldReturnCardWhenIdExists() throws Exception {
 
-        ResultActions resultActions = mockMvc.perform(get("/cards/{id}", existingId).accept(MediaType.APPLICATION_JSON));
+        ResultActions resultActions = mockMvc.perform(get("/cards/id/{id}", existingId).accept(MediaType.APPLICATION_JSON));
 
         resultActions.andExpect(status().isOk());
         resultActions.andExpect(jsonPath("$.id").exists());
@@ -93,15 +97,14 @@ class CardControllerTests {
 
     @Test
     void findByIdShouldReturnNotFoundWhenIdDoesNotExist() throws Exception {
-        ResultActions resultActions = mockMvc.perform(get("/cards/{id}", nonExistingId).accept(MediaType.APPLICATION_JSON));
-
+        ResultActions resultActions = mockMvc.perform(get("/cards/id/{id}", nonExistingId).accept(MediaType.APPLICATION_JSON));
         resultActions.andExpect(status().isNotFound());
     }
 
     @Test
     void findByNameShouldReturnCardWhenNameExists() throws Exception {
 
-        ResultActions resultActions = mockMvc.perform(get("/cards/{name}", existingName).accept(MediaType.APPLICATION_JSON));
+        ResultActions resultActions = mockMvc.perform(get("/cards/name/{name}", existingName).accept(MediaType.APPLICATION_JSON));
 
         resultActions.andExpect(status().isOk());
         resultActions.andExpect(jsonPath("$.id").exists());
@@ -115,15 +118,19 @@ class CardControllerTests {
 
     @Test
     void findByNameShouldReturnNotFoundWhenNameDoesNotExist() throws Exception {
-        ResultActions resultActions = mockMvc.perform(get("/cards/{name}", nonExistingName).accept(MediaType.APPLICATION_JSON));
+        ResultActions resultActions = mockMvc.perform(get("/cards/name/{name}", nonExistingName).accept(MediaType.APPLICATION_JSON));
         resultActions.andExpect(status().isNotFound());
     }
 
     @Test
     void insertShouldReturnCardDTOCreated() throws Exception {
-        String jsonBody = objectMapper.writeValueAsString(dto);
+        String jsonBody = objectMapper.writeValueAsString(cardDTO);
 
-        ResultActions resultActions = mockMvc.perform(post("/cards").content(jsonBody).contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON));
+        ResultActions resultActions = mockMvc.perform(post("/cards")
+                .content(jsonBody)
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON));
+
         resultActions.andExpect(status().isCreated());
         resultActions.andExpect(jsonPath("$.id").exists());
         resultActions.andExpect(jsonPath("$.name").exists());
@@ -135,8 +142,8 @@ class CardControllerTests {
     }
 
     @Test
-    void updateShouldReturnCardDTOWhenIdExists() throws Exception{
-        String jsonBody = objectMapper.writeValueAsString(dto);
+    void updateShouldReturnCardDTOWhenIdExists() throws Exception {
+        String jsonBody = objectMapper.writeValueAsString(cardDTO);
 
         ResultActions resultActions = mockMvc.perform(put("/cards/{id}", existingId).content(jsonBody).contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON));
 
@@ -152,7 +159,7 @@ class CardControllerTests {
 
     @Test
     void updateShouldReturnNotFoundWhenIdDoesNotExist() throws Exception {
-        String jsonBody = objectMapper.writeValueAsString(dto);
+        String jsonBody = objectMapper.writeValueAsString(cardDTO);
 
         ResultActions resultActions = mockMvc.perform(put("/cards/{id}", nonExistingId).content(jsonBody).contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON));
 
@@ -171,5 +178,12 @@ class CardControllerTests {
         ResultActions resultActions = mockMvc.perform(delete("/cards/{id}", nonExistingId).accept(MediaType.APPLICATION_JSON));
 
         resultActions.andExpect(status().isNotFound());
+    }
+
+    @Test
+    void deleteShouldReturnDatabaseErrorWhenIdIsDependent() throws Exception {
+        ResultActions resultActions = mockMvc.perform(delete("/cards/{id}", dependentId).accept(MediaType.APPLICATION_JSON));
+
+        resultActions.andExpect(status().isBadRequest());
     }
 }
