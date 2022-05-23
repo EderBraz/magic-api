@@ -1,0 +1,499 @@
+{
+	"info": {
+		"_postman_id": "93df97e6-d5fd-4ef7-85ac-f2945c3e0fc8",
+		"name": "Magic api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "15601647"
+	},
+	"item": [
+		{
+			"name": "Card",
+			"item": [
+				{
+					"name": "Cards paged",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/cards",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"cards"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cards paged sort by name",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/cards?sort=name,asc",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"cards"
+							],
+							"query": [
+								{
+									"key": "sort",
+									"value": "name,asc"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cards paged sort by price",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/cards?sort=price,desc",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"cards"
+							],
+							"query": [
+								{
+									"key": "sort",
+									"value": "price,desc"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cards by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/cards/1",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"cards",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cards by name",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/cards/name/Princesa Adorada",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"cards",
+								"name",
+								"Princesa Adorada"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New Card",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Lotus negro\",\r\n    \"edition\": 7,\r\n    \"foil\": true,\r\n    \"language\": \"PT_BR\",\r\n    \"price\": 1000.0,\r\n    \"quantity\": 1\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/cards",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"cards"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New Invalid card",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Black Lotus\",\r\n    \"edition\": 7,\r\n    \"foil\": true,\r\n    \"language\": \"EN\",\r\n    \"price\": 1000.0,\r\n    \"quantity\": 1\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/cards",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"cards"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Card",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Lotus negro1\",\r\n    \"edition\": 7,\r\n    \"foil\": true,\r\n    \"language\": \"PT_BR\",\r\n    \"price\": 1000.0,\r\n    \"quantity\": 1\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/cards/1",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"cards",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Card",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/cards/1",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"cards",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Deck",
+			"item": [
+				{
+					"name": "Decks paged",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/decks?sort=name,asc",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"decks"
+							],
+							"query": [
+								{
+									"key": "sort",
+									"value": "name,asc"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Deck by name",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/decks/Branco",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"decks",
+								"Branco"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New Deck",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Branco\",\r\n    \"owner\": \"Teste\",\r\n    \"cardList\": [\r\n        {\r\n            \"id\": 1\r\n        },\r\n        {\r\n            \"id\": 2\r\n        },\r\n        {\r\n            \"id\": 3\r\n        }\r\n        ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/decks/",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"decks",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Deck Copy",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Branco\",\r\n    \"owner\": \"Teste\" ,     \r\n    \"cardList\": [\r\n        {\r\n            \"id\": 1\r\n        },\r\n        {\r\n            \"id\": 2\r\n        }\r\n\r\n        ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/decks/player/Teste/deck/1",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"decks",
+								"player",
+								"Teste",
+								"deck",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Deck",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/player/1/decks/1",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"player",
+								"1",
+								"decks",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Card to Deck",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/decks/player/Teste/deck/2/addCard/3",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"decks",
+								"player",
+								"Teste",
+								"deck",
+								"2",
+								"addCard",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remove card from Deck",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/decks/player/Teste/deck/2/removeCard/3",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"decks",
+								"player",
+								"Teste",
+								"deck",
+								"2",
+								"removeCard",
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Player",
+			"item": [
+				{
+					"name": "Players paged",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/players",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"players"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Player by name",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/players/Teste",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"players",
+								"Teste"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New Player",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Test\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/players/",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"players",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Player",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Test2\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/players/2",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"players",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Player",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/players/2",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"players",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "host",
+			"value": "localhost:8080"
+		}
+	]
+}
