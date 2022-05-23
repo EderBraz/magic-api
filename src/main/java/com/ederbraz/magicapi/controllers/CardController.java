@@ -26,14 +26,14 @@ public class CardController {
         return ResponseEntity.ok().body(page);
     }
 
-    @GetMapping(value = "/{id}")
+    @GetMapping(value = "/id/{id}")
     @ApiOperation("Find card by id")
     public ResponseEntity<CardDTO> findById(@PathVariable Long id) {
         CardDTO dto = cardService.findById(id);
         return ResponseEntity.ok().body(dto);
     }
 
-    @GetMapping(value = "/{name}")
+    @GetMapping(value = "/name/{name}")
     @ApiOperation("Find card by name")
     public ResponseEntity<CardDTO> findByName(@PathVariable String name) {
         CardDTO dto = cardService.findByName(name);

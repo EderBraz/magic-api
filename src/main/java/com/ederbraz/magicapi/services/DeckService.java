@@ -17,6 +17,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import javax.transaction.Transactional;
 import java.util.Optional;
 
 @Service
@@ -44,7 +45,7 @@ public class DeckService {
         return new DeckDTO(entity);
     }
 
-
+    @Transactional
     public DeckDTO insert(DeckDTO dto) {
         Deck deck = new Deck();
         copyDtoToEntity(dto, deck);
@@ -53,6 +54,7 @@ public class DeckService {
         return new DeckDTO(deck);
     }
 
+    @Transactional
     public DeckDTO update(Long id, DeckDTO dto, String playerName) {
         try {
             Deck deck = deckRepository.getById(id);
@@ -115,7 +117,7 @@ public class DeckService {
     }
     private void checkIfPlayerIsOwner(String player, String owner) {
         if(!player.equals(owner)){
-            throw new IllegalArgumentException("You Cannot delete deck from another player");
+            throw new IllegalArgumentException("You cannot change a deck from another player");
         }
     }
 }

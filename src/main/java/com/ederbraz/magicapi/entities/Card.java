@@ -37,4 +37,13 @@ public class Card implements Serializable {
     @JsonIgnore
     private List<Deck> deckList = new ArrayList<>();
 
+    public Card(Long id, String name, String edition, Language language, boolean foil, double price, int quantity) {
+        this.id = id;
+        this.name = name;
+        this.edition = edition;
+        this.language = language;
+        this.foil = foil;
+        this.price = price;
+        this.quantity = quantity;
+    }
 }

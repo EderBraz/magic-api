@@ -41,6 +41,7 @@ public class CardDTO implements Serializable {
         this.language = entity.getLanguage();
         this.foil = entity.isFoil();
         this.price = entity.getPrice();
+        this.quantity = entity.getQuantity();
     }
 
 }

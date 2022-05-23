@@ -12,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import javax.transaction.Transactional;
 import java.util.Optional;
 
 @Service
@@ -39,6 +40,7 @@ public class CardService {
         return new CardDTO(entity);
     }
 
+    @Transactional
     public CardDTO insert(CardDTO dto) {
         Card entity = new Card();
         copyDtoToEntity(dto, entity);
@@ -49,6 +51,7 @@ public class CardService {
         return new CardDTO(entity);
     }
 
+    @Transactional
     public CardDTO update(Long id, CardDTO dto) {
         try {
             Card entity = cardRepository.getById(id);

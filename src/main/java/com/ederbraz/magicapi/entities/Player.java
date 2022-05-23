@@ -2,6 +2,7 @@ package com.ederbraz.magicapi.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
@@ -10,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Data
+@NoArgsConstructor
 @Entity
 @Table(name = "player")
 public class Player implements Serializable {
@@ -26,4 +28,9 @@ public class Player implements Serializable {
     @ToString.Exclude
     @JsonIgnore
     private List<Deck> deckList = new ArrayList<>();
+
+    public Player(Long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
 }
